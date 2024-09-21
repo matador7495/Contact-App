@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { ContactContext } from "../context/ContactProvider";
 
+import ContactsList from "./ContactsList";
 import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css";
 
@@ -36,6 +37,7 @@ function Contacts() {
         ))}
         <button onClick={addHandler}>Add Contact</button>
       </div>
+      <ContactsList />
     </div>
   );
 }
