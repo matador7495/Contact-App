@@ -6,6 +6,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       return [...state, action.payload];
+    case "DELETE":
+      return state.filter((contact) => contact.id !== action.payload);
     default:
       throw new Error("Action not found");
   }
@@ -13,7 +15,7 @@ const reducer = (state, action) => {
 
 const ContactProvider = ({ children }) => {
   const [contacts, dispatch] = useReducer(reducer, []);
-
+  console.log(contacts);
   return <ContactContext.Provider value={{ contacts, dispatch }}>{children}</ContactContext.Provider>;
 };
 

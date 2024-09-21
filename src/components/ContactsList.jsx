@@ -5,7 +5,7 @@ import ContactItem from "./ContactItem";
 import styles from "./ContactsList.module.css";
 
 const ContactsList = () => {
-  const { contacts } = useContext(ContactContext);
+  const { contacts, dispatch } = useContext(ContactContext);
 
   return (
     <div className={styles.container}>
@@ -13,7 +13,7 @@ const ContactsList = () => {
       {contacts.length ? (
         <ul className={styles.contacts}>
           {contacts.map((contact) => (
-            <ContactItem key={contact.id} contact={contact} />
+            <ContactItem key={contact.id} contact={contact} dispatch={dispatch} />
           ))}
         </ul>
       ) : (

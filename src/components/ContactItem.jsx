@@ -1,7 +1,11 @@
 import styles from "./ContactItem.module.css";
 
-function ContactItem({ contact }) {
+function ContactItem({ contact, dispatch }) {
   const { id, name, lastName, email, phone } = contact;
+
+  const deleteHandler = () => {
+    dispatch({ type: "DELETE", payload: id });
+  };
 
   return (
     <li className={styles.item}>
@@ -15,7 +19,7 @@ function ContactItem({ contact }) {
         <span>📱</span>
         {phone}
       </p>
-      <button onClick={handleDelete}>🗑</button>
+      <button onClick={deleteHandler}>🗑</button>
     </li>
   );
 }
