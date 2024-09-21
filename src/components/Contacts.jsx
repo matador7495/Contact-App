@@ -1,23 +1,40 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContactContext } from "../context/ContactProvider";
 
 import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css";
 
 function Contacts() {
-  const [contact, setContact] = useState({ name: "", lastName: "", email: "", phone: "" });
+  const [contact, setContact] = useState("");
+  const { dispatch } = useContext(ContactContext);
 
   const inputHandler = (event) => {
     const { name, value } = event.target;
     setContact((prevContact) => ({ ...prevContact, [name]: value }));
   };
 
+  const addHandler = () => {
+    dispatch({
+      type: "ADD",
+      payload: { ...contact, id: Date.now() },
+    });
+    setContact("");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
         {inputs.map((input, index) => (
-          <input key={index} type={input.type} name={input.name} placeholder={input.placeholder} onChange={inputHandler} />
+          <input
+            key={index}
+            type={input.type}
+            name={input.name}
+            placeholder={input.placeholder}
+            value={contact[input.name] || ""}
+            onChange={inputHandler}
+          />
         ))}
-        <button>Add Contact</button>
+        <button onClick={addHandler}>Add Contact</button>
       </div>
     </div>
   );

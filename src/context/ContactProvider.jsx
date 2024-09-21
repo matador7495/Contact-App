@@ -14,11 +14,7 @@ const reducer = (state, action) => {
 const ContactProvider = ({ children }) => {
   const [contacts, dispatch] = useReducer(reducer, []);
 
-  const addContact = (contact) => {
-    dispatch({ type: "ADD", payload: contact });
-  };
-
-  return <ContactContext.Provider value={{ contacts, addContact }}>{children}</ContactContext.Provider>;
+  return <ContactContext.Provider value={{ contacts, dispatch }}>{children}</ContactContext.Provider>;
 };
 
 export { ContactContext, ContactProvider };
