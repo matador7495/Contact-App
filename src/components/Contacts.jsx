@@ -7,6 +7,7 @@ import styles from "./Contacts.module.css";
 
 function Contacts() {
   const [contact, setContact] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const { dispatch } = useContext(ContactContext);
 
   const inputHandler = (event) => {
@@ -14,12 +15,22 @@ function Contacts() {
     setContact((prevContact) => ({ ...prevContact, [name]: value }));
   };
 
-  const addHandler = () => {
-    dispatch({
-      type: "ADD",
-      payload: { ...contact, id: Date.now() },
-    });
+  const addOrUpdateHandler = () => {
+    if (isEditing) {
+      dispatch({ type: "EDIT", payload: contact });
+      setIsEditing(false);
+    } else {
+      dispatch({
+        type: "ADD",
+        payload: { ...contact, id: Date.now() },
+      });
+    }
     setContact("");
+  };
+
+  const editHandler = (contactToEdit) => {
+    setContact(contactToEdit);
+    setIsEditing(true);
   };
 
   return (
@@ -35,9 +46,11 @@ function Contacts() {
             onChange={inputHandler}
           />
         ))}
-        <button onClick={addHandler}>Add Contact</button>
+        <button onClick={addOrUpdateHandler} className={isEditing ? styles.edit : ""}>
+          {isEditing ? "Update Contact" : "Add Contact"}
+        </button>
       </div>
-      <ContactsList />
+      <ContactsList onEdit={editHandler} />
     </div>
   );
 }

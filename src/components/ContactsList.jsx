@@ -4,7 +4,7 @@ import { ContactContext } from "../context/ContactProvider";
 import ContactItem from "./ContactItem";
 import styles from "./ContactsList.module.css";
 
-const ContactsList = () => {
+const ContactsList = ({ onEdit }) => {
   const { contacts, dispatch } = useContext(ContactContext);
 
   return (
@@ -13,7 +13,7 @@ const ContactsList = () => {
       {contacts.length ? (
         <ul className={styles.contacts}>
           {contacts.map((contact) => (
-            <ContactItem key={contact.id} contact={contact} dispatch={dispatch} />
+            <ContactItem key={contact.id} contact={contact} dispatch={dispatch} onEdit={onEdit} />
           ))}
         </ul>
       ) : (
