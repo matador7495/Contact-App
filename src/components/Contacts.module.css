@@ -23,6 +23,9 @@
   color: #304ffe;
   font-size: 1rem;
 }
+.form input:focus {
+  outline: 1px solid #eaeaea;
+}
 .form button {
   width: calc(90% + 20px);
   height: 40px;
@@ -35,6 +38,9 @@
   font-size: 1rem;
   color: #fff;
   transition: 0.2s all ease-in-out;
+}
+.form button.edit {
+  background-color: #c4190d;
 }
 .form button:hover {
   box-shadow: #0c2ad487 0px 7px 29px 0px;

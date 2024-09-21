@@ -24,14 +24,15 @@
   border-radius: 50%;
 }
 .item button {
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
   background-color: #fff;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   transition: 0.1s all ease-in-out;
+  margin-left: 6px;
 }
 .item button:hover {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
