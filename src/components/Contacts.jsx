@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ContactContext } from "../context/ContactProvider";
-
+import ShowModal from "./ShowModal";
 import ContactsList from "./ContactsList";
 import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css";
@@ -8,6 +8,7 @@ import styles from "./Contacts.module.css";
 function Contacts() {
   const [contact, setContact] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { dispatch } = useContext(ContactContext);
 
   const inputHandler = (event) => {
@@ -17,20 +18,27 @@ function Contacts() {
 
   const addOrUpdateHandler = () => {
     if (isEditing) {
-      dispatch({ type: "EDIT", payload: contact });
-      setIsEditing(false);
+      setShowModal(true);
     } else {
-      dispatch({
-        type: "ADD",
-        payload: { ...contact, id: Date.now() },
-      });
+      dispatch({ type: "ADD", payload: { ...contact, id: Date.now() } });
+      resetForm();
     }
-    setContact("");
+  };
+
+  const handleModalResult = (result) => {
+    if (result) dispatch({ type: "EDIT", payload: contact });
+    resetForm();
+    setShowModal(false);
   };
 
   const editHandler = (contactToEdit) => {
     setContact(contactToEdit);
     setIsEditing(true);
+  };
+
+  const resetForm = () => {
+    setContact("");
+    setIsEditing(false);
   };
 
   return (
@@ -51,6 +59,7 @@ function Contacts() {
         </button>
       </div>
       <ContactsList onEdit={editHandler} />
+      {showModal && <ShowModal onResult={handleModalResult} />}
     </div>
   );
 }
